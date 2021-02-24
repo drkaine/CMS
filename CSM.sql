@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 24 fév. 2021 à 12:34
+-- Généré le : mer. 24 fév. 2021 à 13:19
 -- Version du serveur :  5.7.24
 -- Version de PHP : 7.2.19
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `competences` (
-  `Id` int(11) UNSIGNED NOT NULL,
+  `Id_Competence` int(11) UNSIGNED NOT NULL,
   `Savoir_Faire` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `Savoirs` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -40,10 +40,10 @@ CREATE TABLE `competences` (
 --
 
 CREATE TABLE `fiches` (
-  `Id` int(10) UNSIGNED NOT NULL,
+  `Id_Fiche` int(10) UNSIGNED NOT NULL,
   `Titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Code_ROM` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Desccription_Courte` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Description_Courte` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Description_Detaille` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `Photo` int(1) UNSIGNED DEFAULT NULL,
   `Fichier` int(1) UNSIGNED DEFAULT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE `fiche_competence` (
 --
 
 CREATE TABLE `utilisateurs` (
-  `Id` int(11) UNSIGNED NOT NULL,
+  `Id_Utilisateur` int(11) UNSIGNED NOT NULL,
   `Nom` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Prenom` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Mail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -98,13 +98,13 @@ CREATE TABLE `utilisation` (
 -- Index pour la table `competences`
 --
 ALTER TABLE `competences`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`Id_Competence`);
 
 --
 -- Index pour la table `fiches`
 --
 ALTER TABLE `fiches`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`Id_Fiche`);
 
 --
 -- Index pour la table `fiche_competence`
@@ -117,7 +117,7 @@ ALTER TABLE `fiche_competence`
 -- Index pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  ADD PRIMARY KEY (`Id`),
+  ADD PRIMARY KEY (`Id_Utilisateur`),
   ADD UNIQUE KEY `Mail` (`Mail`);
 
 --
@@ -135,19 +135,19 @@ ALTER TABLE `utilisation`
 -- AUTO_INCREMENT pour la table `competences`
 --
 ALTER TABLE `competences`
-  MODIFY `Id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Competence` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `fiches`
 --
 ALTER TABLE `fiches`
-  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Fiche` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `Id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Utilisateur` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées
@@ -157,15 +157,15 @@ ALTER TABLE `utilisateurs`
 -- Contraintes pour la table `fiche_competence`
 --
 ALTER TABLE `fiche_competence`
-  ADD CONSTRAINT `fiche_competence_ibfk_1` FOREIGN KEY (`Id_Fiche`) REFERENCES `fiches` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fiche_competence_ibfk_2` FOREIGN KEY (`Id_Competence`) REFERENCES `competences` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fiche_competence_ibfk_1` FOREIGN KEY (`Id_Fiche`) REFERENCES `fiches` (`Id_Fiche`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fiche_competence_ibfk_2` FOREIGN KEY (`Id_Competence`) REFERENCES `competences` (`Id_Competence`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `utilisation`
 --
 ALTER TABLE `utilisation`
-  ADD CONSTRAINT `utilisation_ibfk_1` FOREIGN KEY (`Id_Utilisateur`) REFERENCES `utilisateurs` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `utilisation_ibfk_2` FOREIGN KEY (`Id_Fiche`) REFERENCES `fiches` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `utilisation_ibfk_1` FOREIGN KEY (`Id_Utilisateur`) REFERENCES `utilisateurs` (`Id_Utilisateur`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `utilisation_ibfk_2` FOREIGN KEY (`Id_Fiche`) REFERENCES `fiches` (`Id_Fiche`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
