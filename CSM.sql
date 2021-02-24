@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 24 fév. 2021 à 13:19
+-- Généré le : mer. 24 fév. 2021 à 15:20
 -- Version du serveur :  5.7.24
 -- Version de PHP : 7.2.19
 
@@ -77,6 +77,13 @@ CREATE TABLE `utilisateurs` (
   `Mot_De_Passe` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `utilisateurs`
+--
+
+INSERT INTO `utilisateurs` (`Id_Utilisateur`, `Nom`, `Prenom`, `Mail`, `Archive`, `Niveau`, `Mot_De_Passe`) VALUES
+(1, 'jpp', 'jpp', 'jpp@ics.com', NULL, NULL, 'abcd');
+
 -- --------------------------------------------------------
 
 --
@@ -147,7 +154,7 @@ ALTER TABLE `fiches`
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `Id_Utilisateur` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Utilisateur` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
