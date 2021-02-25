@@ -24,7 +24,7 @@
     		self::creation_Connexion();
     		if($archive == null)
     		{
-    			$sql = "SELECT `Titre`, `Code_ROM` FROM `fiches` WHERE `Archive` IS NULL";
+    			$sql = "SELECT `Titre`, `Code_ROM` FROM `fiches` WHERE `Archive` IS NULL OR `Archive` = 0";
     		}
             else
             {
@@ -40,7 +40,7 @@
     	{
     		self::creation_Connexion();
 
-    		 $sql = "SELECT * FROM `fiches` INNER JOIN fiche_competence WHERE Fiches.Id_Fiche = :id ";
+    		 $sql = "SELECT `Titre`, `Code_ROM`, `Description_Courte`, `Description_Detaille`, `Photo`, `Fichier`, `Archive` FROM `fiches` INNER JOIN fiche_competence WHERE Fiches.Id_Fiche = :id ";
             $data = self::$conn->prepare($sql);
             $data->bindValue(":id", $id);
             $data->execute();
@@ -55,11 +55,9 @@
 
     		try 
     		{
-    			$sql = "INSERT INTO `fiches` (`Id_Fiche`, `Titre`, `Code_ROM`, `Description_Courte`, `Description_Detaille`, `Photo`, `Fichier`, `Archive`) VALUES (:Id_Fiche, :Titre, :Code_ROM, :Description_Courte, :Description_Detaille, :Photo, :Fichier, :Archive)";
+    			$sql = "INSERT INTO `fiches` (`Titre`, `Code_ROM`, `Description_Courte`, `Description_Detaille`, `Photo`, `Fichier`, `Archive`) VALUES (:Titre, :Code_ROM, :Description_Courte, :Description_Detaille, :Photo, :Fichier, :Archive)";
 
     			 $req = self::$conn->prepare($sql);
-                
-                $req->bindValue(":Id_Fiche", $fiche->Id_Fiche);
                 $req->bindValue(":Titre", $fiche->Titre);
                 $req->bindValue(":Code_ROM", $fiche->Code_ROM);
                 $req->bindValue(":Description_Courte", $fiche->Description_Courte);
@@ -91,7 +89,7 @@
             {
                 self::$conn->beginTransaction();
                 
-                $sql = "UPDATE `fiches` SET `Id_Fiche` = :Id_Fiche, `Titre` = :Titre, `Code_ROM` = :Code_ROM, `Description_Courte` = :Description_Courte, `Description_Detaille` = :Description_Detaille, `Photo` = :Photo, `Fichier` = :Fichier, `Archive` = :Archive WHERE `fiches`.`Id_Fiche` = :Id_Fiche ";
+                $sql = "UPDATE `fiches` SET `Titre` = :Titre, `Code_ROM` = :Code_ROM, `Description_Courte` = :Description_Courte, `Description_Detaille` = :Description_Detaille, `Photo` = :Photo, `Fichier` = :Fichier, `Archive` = :Archive WHERE `fiches`.`Id_Fiche` = :Id_Fiche ";
                 
                 $req = self::$conn->prepare($sql);
                 $req->bindValue(":Id_Fiche", $fiche->Id_Fiche);
@@ -123,14 +121,14 @@
     	{
     		self::creation_Connexion();
 
-    		$sql = "SELECT * FROM  `competences` INNER JOIN fiche_competence WHERE Fiches.Id_Fiche = :id ";
+    		$sql = "SELECT * FROM  `competences` INNER JOIN fiche_competence WHERE Id_Fiche = :id ";
             $data = self::$conn->prepare($sql);
             $data->bindValue(":id", $id);
             $data->execute();
             return $data->fetch(PDO::FETCH_OBJ);
     	}
 
-        static function creation_Competence($fiche)
+        static function creation_Fiche_Competence($fiche)
         {
         	$sqlI = "INSERT INTO `fiche_competence` (`Id_Fiche`, `Id_Competence`) VALUES (:Id_Fiche, :Id_Competence)";
                 $reqI = self::$conn->prepare($sqlI);
@@ -142,7 +140,7 @@
             }
         }
 
-        static function supression_Competence($fiche)
+        static function supression_Fiche_Competence($fiche)
         {
         	$sqlD = "DELETE FROM `fiche_competence` WHERE `fiches`.`Id_Fiche` = :Id_Fiche";
             $reqD = self::$conn->prepare($sqlD);
@@ -170,7 +168,7 @@
     	static function afficher_Info_Utilisateur($id)
     	{
     		self::creation_Connexion();
-    		$sql = "SELECT * FROM `utilisateurs` WHERE Id_Utilisateur = :id";
+    		$sql = "SELECT `Nom`, `Prenom`, `Mail`, `Archive`, `Niveau` FROM `utilisateurs` WHERE Id_Utilisateur = :id";
             $data = self::$conn->prepare($sql);
             $data->bindValue(":id", $id);
             $data->execute();
@@ -182,20 +180,19 @@
     		self::creation_Connexion();
     		try 
     		{
-    			$sql = "INSERT INTO `utilisateur` (`Id_Utilisateur`, `Nom`, `Prenom`, `Mail`, `Archive`, `Niveau`, `Mot_De_Passe`) VALUES (:Id_Utilisateur, :Nom, :Prenom, :Mail, :Archive, :Niveau, :Mot_De_Passe)";
+    			$sql = "INSERT INTO `utilisateurs` (`Id_Utilisateur`, `Nom`, `Prenom`, `Mail`, `Archive`, `Niveau`, `Mot_De_Passe`) VALUES (:Nom, :Prenom, :Mail, :Archive, :Niveau, :Mot_De_Passe)";
 
     			 $req = self::$conn->prepare($sql);
                 
-                $req->bindValue(":Id_Utilisateur", $fiche->Id_Utilisateur);
-                $req->bindValue(":Nom", $fiche->Nom);
-                $req->bindValue(":Prenom", $fiche->Prenom);
-                $req->bindValue(":Mail", $fiche->Mail);
-                $req->bindValue(":Archive", $fiche->Archive);
-                $req->bindValue(":Niveau", $fiche->Niveau);
-                $req->bindValue(":Mot_De_Passe", $fiche->Mot_De_Passe);
+                $req->bindValue(":Nom", $user->Nom);
+                $req->bindValue(":Prenom", $user->Prenom);
+                $req->bindValue(":Mail", $user->Mail);
+                $req->bindValue(":Archive", $user->Archive);
+                $req->bindValue(":Niveau", $user->Niveau);
+                $req->bindValue(":Mot_De_Passe", $user->Mot_De_Passe);
                 $req->execute();
                 
-                $fiche->Id_Utilisateur = self::$conn->lastInsertId();
+                $user->Id_Utilisateur = self::$conn->lastInsertId();
                 
                 return true;	
     		} 
@@ -210,16 +207,16 @@
     		self::creation_Connexion();
     		try
             {                
-                $sql = "UPDATE `utilisateur` SET `Id_Utilisateur` = :Id_Utilisateur, `Nom` = :Nom, `Prenom` = :Prenom, `Mail` = :Mail, `Archive` = :Archive, `Niveau` = :Niveau, `Mot_De_Passe` = :Mot_De_Passe WHERE `utilisateur`.`Id_Utilisateur` = :Id_Utilisateur ";
+                $sql = "UPDATE `utilisateur` SET  `Nom` = :Nom, `Prenom` = :Prenom, `Mail` = :Mail, `Archive` = :Archive, `Niveau` = :Niveau, `Mot_De_Passe` = :Mot_De_Passe WHERE `utilisateur`.`Id_Utilisateur` = :Id_Utilisateur ";
                 
                 $req = self::$conn->prepare($sql);
-                $req->bindValue(":Id_Utilisateur", $fiche->Id_Utilisateur);
-                $req->bindValue(":Nom", $fiche->Nom);
-                $req->bindValue(":Prenom", $fiche->Prenom);
-                $req->bindValue(":Mail", $fiche->Mail);
-                $req->bindValue(":Archive", $fiche->Archive);
-                $req->bindValue(":Niveau", $fiche->Niveau);
-                $req->bindValue(":Mot_De_Passe", $fiche->Mot_De_Passe);
+                $req->bindValue(":Id_Utilisateur", $user->Id_Utilisateur);
+                $req->bindValue(":Nom", $user->Nom);
+                $req->bindValue(":Prenom", $user->Prenom);
+                $req->bindValue(":Mail", $user->Mail);
+                $req->bindValue(":Archive", $user->Archive);
+                $req->bindValue(":Niveau", $user->Niveau);
+                $req->bindValue(":Mot_De_Passe", $user->Mot_De_Passe);
 
                 $req->execute();
                 return true;
@@ -230,7 +227,64 @@
             }
 
     	}
+
+    	// static function creation_UtilisateurA($user)
+    	// {
+    	// 	self::creation_Connexion();
+    	// 	try 
+    	// 	{
+    	// 		$sql = "INSERT INTO `utilisateurs` (`Nom`, `Prenom`, `Mail`, `Archive`, `Niveau`, `Mot_De_Passe`) VALUES (:Nom, :Prenom, :Mail, :Archive, :Niveau, :Mot_De_Passe)";
+
+    	// 		 $req = self::$conn->prepare($sql);
+                
+     //            $req->bindValue(":Nom", $user["Nom"]);
+     //            $req->bindValue(":Prenom", $user["Prenom"]);
+     //            $req->bindValue(":Mail", $user["Mail"]);
+     //            $req->bindValue(":Archive", $user["Archive"]);
+     //            $req->bindValue(":Niveau", $user["Niveau"]);
+     //            $req->bindValue(":Mot_De_Passe", $user["Mot_De_Passe"]);
+     //            $req->execute();
+                
+     //            $user["Id_Utilisateur"] = self::$conn->lastInsertId();
+                
+     //            return true;	
+    	// 	} 
+    	// 	catch (Exception $e) 
+    	// 	{
+    	// 		return false;
+    	// 	}
+    	// }
+
+    	// static function modification_UtilisateurA($user)
+    	// {
+    	// 	self::creation_Connexion();
+    	// 	try
+     //        {                
+     //            $sql = "UPDATE `utilisateurs` SET `Nom` = :Nom, `Prenom` = :Prenom, `Mail` = :Mail, `Archive` = :Archive, `Niveau` = :Niveau, `Mot_De_Passe` = :Mot_De_Passe WHERE `utilisateurs`.`Id_Utilisateur` = :Id_Utilisateur ";
+                
+     //            $req = self::$conn->prepare($sql);
+     //            $req->bindValue(":Id_Utilisateur", $user["Id_Utilisateur"]);
+     //            $req->bindValue(":Nom", $user["Nom"]);
+     //            $req->bindValue(":Prenom", $user["Prenom"]);
+     //            $req->bindValue(":Mail", $user["Mail"]);
+     //            $req->bindValue(":Archive", $user["Archive"]);
+     //            $req->bindValue(":Niveau", $user["Niveau"]);
+     //            $req->bindValue(":Mot_De_Passe", $user["Mot_De_Passe"]);
+
+     //            $req->execute();
+     //            return true;
+     //        } 
+     //        catch(PDOException $e)
+     //        {
+     //            return false;
+     //        }
+    	// }
     }
 
-   var_dump( Database::afficher_Utilisateurs());
-   // var_dump(Database::afficher_Info_Utilisateur(1));
+    $user = ["Id_Utilisateur"=>1,"Nom"=> "Jpp", "Prenom" => "Jpp", "Mail"=>"jPPy@ics.com", "Archive"=>1, "Niveau"=>1,"Mot_De_Passe" => "1243"];
+
+    // var_dump( Database::afficher_Utilisateurs());
+    // var_dump(Database::afficher_Info_Utilisateur(1));
+	// var_dump(Database::creation_UtilisateurA($user));
+	// var_dump(Database::afficher_Info_Utilisateur(1));
+	 // Database::modification_UtilisateurA($user);
