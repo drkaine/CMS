@@ -153,7 +153,7 @@
     		self::creation_Connexion();
     		try 
     		{
-    			$sql = "INSERT INTO `utilisateurs` (`Id_Utilisateur`, `Nom`, `Prenom`, `Mail`, `Archive`, `Niveau`, `Mot_De_Passe`) VALUES (:Nom, :Prenom, :Mail, :Archive, :Niveau, :Mot_De_Passe)";
+    			$sql = "INSERT INTO `utilisateurs` (`Nom`, `Prenom`, `Mail`, `Archive`, `Niveau`, `Mot_De_Passe`) VALUES (:Nom, :Prenom, :Mail, :Archive, :Niveau, :Mot_De_Passe)";
 
     			 $req = self::$conn->prepare($sql);
                 

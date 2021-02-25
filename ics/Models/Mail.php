@@ -1,5 +1,6 @@
 <?php
-	require("Database.php");
+	// require("Database.php");
+	// require("MDP.php");
 	class Mail
 	{
 		protected $to;

@@ -1,16 +1,17 @@
 <?php
-
+	// require("Database.php");
+	// require("MDP.php");
 	class Utilisateurs
 	{
 
 		function creation_Utilisateur($user)
 		{
-			$erreurs = [];
-            foreach($fiche as $attribut => $valeur)
+			
+            foreach($user as $attribut => $valeur)
             {
             	if($attribut == "Mot_De_Passe")
             	{
-            		MDP::generationMDP();
+            		$this->$attribut = MDP::generationMDP();
             	}
             	else
             	{
@@ -46,10 +47,16 @@
 		function sauvegarde_Utilisateur()
 		{
 			Database::creation_Utilisateur($this);
+			return true;
 		}
 
-		static function modification_Mot_De_Passe($mail, $mdp, 1)
+		static function modification_Mot_De_Passe($mail, $mdp, $co = 1)
 		{
-			Database::modification_Mot_De_Passe($mail, MDP::hachage($mdp), 1);
+			Database::modification_Mot_De_Passe($mail, MDP::hachage($mdp), $co);
 		}
 	}
+
+	// $user = ["Nom"=>"h","Prenom"=>"h","Mail"=>"h@ics.com","Niveau"=>null,"Archive"=>Null,"Mot_De_Passe"=>"h"];
+ //    $u = new Utilisateurs();
+ //    $u->creation_Utilisateur($user);
+ //    var_dump($u->sauvegarde_Utilisateur());

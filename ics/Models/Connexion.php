@@ -1,17 +1,21 @@
 <?php
+	
+	require("Database.php");
 
 	class Connexion
 	{
 
 		static function login($mail,$password)
 		{
+			$mdp = MDP::hachage($password);
 			$comp = Database::afficher_Info("utilisateurs", "Mail", $mail);
 			if($comp === false)
 			{
 				return "Couple mail et mot de passe incorrect";
 			}
-			else if ($comp->Mail == $mail and $comp->Mot_De_Passe == $password)
+			else if ($comp->Mail == $mail and $comp->Mot_De_Passe == $mdp)
 			{
+				$_SESSION['Id_Utilisateur'] = $comp->Id_Utilisateur;
 				return $comp->Niveau;
 			}
 			else
@@ -31,16 +35,6 @@
 		  
 			  }
 		  
-		}
-
-		function session()
-		{
-
-		}
-
-		function coockie()
-		{
-
 		}
 		
 	}
