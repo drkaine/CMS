@@ -10,7 +10,18 @@
             {
                 if(!empty($valeur))
                 {
-                    if($attribut == "Mail")
+                    if($attribut == "Titre")
+                    {
+                        if(empty($valeur))
+                        {
+                            $erreurs[] = $attribut;
+                        } 
+                        else 
+                        {
+                            $this->$attribut = $valeur;
+                        }
+                    } 
+                    else if($attribut == "Code_ROM")
                     {
                         if(empty($valeur))
                         {
