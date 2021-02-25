@@ -72,18 +72,6 @@
 			}
 		}
 
-		static function supression_Fiche()
-		{
-			if(Database::supression_Fiche($this) and Utilisateur::creation_Fiche_Competence())
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
 		static function afficher_Fiches($archive = NULL)
 		{
 			return Database::afficher_Fiches($archive);

@@ -19,7 +19,7 @@
             }
         }  
 
-    	static function afficher_Fiches($archive = null)
+    	static function afficher_Fiches($archive)
     	{
     		self::creation_Connexion();
     		if($archive == null)
@@ -148,7 +148,7 @@
             $reqD->execute();
         }    	
 
-    	static function afficher_Utilisateurs($archive = null)
+    	static function afficher_Utilisateurs($archive)
     	{
     		self::creation_Connexion();
     		if($archive == null)
