@@ -104,9 +104,9 @@
 
                 $req->execute();
 
-                self::supression_Competence($fiche);
+                self::supression_File_Competence($fiche);
 
-                self::creation_Competence($fiche);
+                self::creation_File_Competence($fiche);
                 
                 self::$conn->commit();
                 return true;
