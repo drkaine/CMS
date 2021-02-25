@@ -3,118 +3,33 @@
 	class Utilisateur
 	{
 
-		static function creation_Fiche($fiche)
+		static function creation_Utilisateur($user)
 		{
 			$erreurs = [];
             foreach($fiche as $attribut => $valeur)
             {
-                if(!empty($valeur))
-                {
-                    if($attribut == "Titre")
-                    {
-                        if(empty($valeur))
-                        {
-                            $erreurs[] = $attribut;
-                        } 
-                        else 
-                        {
-                            $this->$attribut = $valeur;
-                        }
-                    } 
-                    else if($attribut == "Code_ROM")
-                    {
-                        if(empty($valeur))
-                        {
-                            $erreurs[] = $attribut;
-                        } 
-                        else 
-                        {
-                            $this->$attribut = $valeur;
-                        }
-                    } 
-                    else 
-                    {
-                        $this->$attribut = $valeur;
-                    }
-                    
-                } 
-                else 
-                {
-                    $erreurs[] = $attribut;
-                }
-            }
-            
-            if(empty($erreurs)) 
-            {
-                return true;
-            } 
-            else 
-            {
-                return $erreurs;
-            }
-		}
-
-		static function save_Fiche()
-		{
-			$bdd = Database::creation_Fiche($this);
-			Utilisateur::creation_Fiche_Competence();
-		}
-
-		static function modification_Fiche()
-		{
-			if(Database::modification_Fiche($this) and Utilisateur::supression_Fiche_Competence() and Utilisateur::creation_Fiche_Competence())
-			{
-				return true;
+                $this->$attribut = $valeur;
 			}
-			else
-			{
-				return false;
-			}
+			return true;
 		}
 
-		static function afficher_Fiches($archive = NULL)
+		static function afficher_Utilisateurs($archives = NULL)
 		{
-			return Database::afficher_Fiches($archive);
+			return Database::afficher_Utilisateurs($archive);
 		}
 
 		static function hydrate($id)
 		{
-			return Database::afficher_Info_Fiche($id);
+			return Database::afficher_Info_Utilisateur($id);
 		}
 
-		static function creation_Fiche_Competence()
+		static function modification_Utilisateur()
 		{
-			if(Database::creation_Fiche_Competence($this))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			Database::modification_Utilisateur($this);
 		}
 
-		static function supression_Fiche_Competence()
+		static function sauvegarde_Utilisateur()
 		{
-			if(Database::supression_Fiche_Competence($this))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		static function getCompetence($id)
-		{
-			if(Database::getCompetence($id))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			Database::creation_Utilisateur();
 		}
 	}

@@ -19,36 +19,34 @@
             }
         }  
 
-    	static function afficher_Fiches($archive)
+        static function afficher($table, $archive)
     	{
     		self::creation_Connexion();
     		if($archive == null)
     		{
-    			$sql = "SELECT `Titre`, `Code_ROM` FROM `fiches` WHERE `Archive` IS NULL OR `Archive` = 0";
+    			$sql = "SELECT * FROM $table WHERE `Archive` IS NULL";
     		}
-            else
-            {
-            	$sql = "SELECT `Titre`,`Code_ROM` FROM `fiches` WHERE `Archive` = :archive";
-            }
+    		else
+    		{
+    			$sql = "SELECT * FROM $table WHERE `Archive` = :archive";
+    		}
             $data = self::$conn->prepare($sql);
             $data->bindValue(":archive", $archive);
             $data->execute();
             return $data->fetchAll(PDO::FETCH_OBJ);
     	}
 
-    	static function afficher_Info_Fiche($id)
+    	static function afficher_Info($table, $attribut, $valeur)
     	{
     		self::creation_Connexion();
-
-    		 $sql = "SELECT `Titre`, `Code_ROM`, `Description_Courte`, `Description_Detaille`, `Photo`, `Fichier`, `Archive` FROM `fiches` INNER JOIN fiche_competence WHERE Fiches.Id_Fiche = :id ";
+    		$sql = "SELECT * FROM $table WHERE ". $attribut ." = :valeur";
             $data = self::$conn->prepare($sql);
-            $data->bindValue(":id", $id);
+            $data->bindValue(":valeur", $valeur);
             $data->execute();
-            $fiche = $data->fetch(PDO::FETCH_OBJ);
-            $fiche->competences = self::getCompetence($fiche->Id_Fiche);
-            return $fiche;
+            return $data->fetch(PDO::FETCH_OBJ);
     	}
 
+    	
     	static function creation_Fiche($fiche)
     	{
     		self::creation_Connexion();
@@ -151,33 +149,6 @@
             $reqD->execute();
         }    
 
-    	static function afficher_Utilisateurs($archive)
-    	{
-    		self::creation_Connexion();
-    		if($archive == null)
-    		{
-    			$sql = "SELECT `Nom`, `Prenom`, `Mail` FROM `utilisateurs` WHERE `Archive` IS NULL";
-    		}
-    		else
-    		{
-    			$sql = "SELECT `Nom`, `Prenom`, `Mail` FROM `utilisateurs` WHERE `Archive` = :archive";
-    		}
-            $data = self::$conn->prepare($sql);
-            $data->bindValue(":archive", $archive);
-            $data->execute();
-            return $data->fetchAll(PDO::FETCH_OBJ);
-    	}
-
-    	static function afficher_Info_Utilisateur($id)
-    	{
-    		self::creation_Connexion();
-    		$sql = "SELECT `Nom`, `Prenom`, `Mail`, `Archive`, `Niveau` FROM `utilisateurs` WHERE Id_Utilisateur = :id";
-            $data = self::$conn->prepare($sql);
-            $data->bindValue(":id", $id);
-            $data->execute();
-            return $data->fetchAll(PDO::FETCH_OBJ);
-    	}
-
     	static function creation_Utilisateur($user)
     	{
     		self::creation_Connexion();
@@ -210,7 +181,7 @@
     		self::creation_Connexion();
     		try
             {                
-                $sql = "UPDATE `utilisateur` SET  `Nom` = :Nom, `Prenom` = :Prenom, `Mail` = :Mail, `Archive` = :Archive, `Niveau` = :Niveau, `Mot_De_Passe` = :Mot_De_Passe WHERE `utilisateur`.`Id_Utilisateur` = :Id_Utilisateur ";
+                $sql = "UPDATE `utilisateurs` SET  `Nom` = :Nom, `Prenom` = :Prenom, `Mail` = :Mail, `Archive` = :Archive, `Niveau` = :Niveau, `Mot_De_Passe` = :Mot_De_Passe WHERE `utilisateur`.`Id_Utilisateur` = :Id_Utilisateur ";
                 
                 $req = self::$conn->prepare($sql);
                 $req->bindValue(":Id_Utilisateur", $user->Id_Utilisateur);
@@ -228,7 +199,45 @@
             {
                 return false;
             }
+    	}
 
+    	static function modification_Mot_De_Passe($mail, $mdp, $co = NULL)
+    	{
+    		self::creation_Connexion();
+    		try
+            {                
+                $sql = "UPDATE `utilisateurs` SET  `Mot_De_Passe` = :Mot_De_Passe, `Connexion` = :co WHERE `mail` = :mail ";
+                
+                $req = self::$conn->prepare($sql);
+                $req->bindValue(":mail", $mail);     
+                $req->bindValue(":Mot_De_Passe", $mdp);
+                $req->bindValue(":co", $co);
+                $req->execute();
+                return true;
+            } 
+            catch(PDOException $e)
+            {
+                return false;
+            }
+    	}
+
+    	static function archivage($table, $id, $archive = 1)
+    	{
+    		self::creation_Connexion();
+    		try
+            {                
+                $sql = "UPDATE $table SET `Archive` = :archive WHERE `Id_" . substr($table, strlen($table)-1) ."` = :Id ";
+                
+                $req = self::$conn->prepare($sql);
+                $req->bindValue(":Id", $id);
+                $req->bindValue(":Archive", $archive);
+                $req->execute();
+                return true;
+            } 
+            catch(PDOException $e)
+            {
+                return false;
+            }
     	}
 
     	// static function creation_UtilisateurA($user)
@@ -389,3 +398,5 @@
 	// var_dump(Database::afficher_Fiches(1));
 	// Database::creation_FicheA($fiche);
 	// Database::modification_FicheA($fiche);
+	// var_dump(Database::afficher_Info_Utilisateur("Id_Utilisateur", 1));
+	// var_dump(Database::afficher_Info_Utilisateur("Mail", "E@ics.com"));
