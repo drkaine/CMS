@@ -3,7 +3,7 @@
 	class Fiches
 	{
 
-		static function creation_Fiche($fiche)
+		function creation_Fiche($fiche)
 		{
 			$erreurs = [];
             foreach($fiche as $attribut => $valeur)
@@ -13,13 +13,13 @@
 			return true;
 		}
 
-		static function save_Fiche()
+		function save_Fiche()
 		{
-			$bdd = Database::creation_Fiche($this);
+			Database::creation_Fiche($this);
 			self::creation_Fiche_Competence();
 		}
 
-		static function modification_Fiche()
+		function modification_Fiche()
 		{
 			if(Database::modification_Fiche($this) and self::supression_Fiche_Competence() and self::creation_Fiche_Competence())
 			{
@@ -53,7 +53,7 @@
 			}
 		}
 
-		static function supression_Fiche_Competence()
+		function supression_Fiche_Competence()
 		{
 			if(Database::supression_Fiche_Competence($this))
 			{
@@ -65,7 +65,7 @@
 			}
 		}
 
-		static function getCompetence($id)
+		function getCompetence($id)
 		{
 			if(Database::getCompetence($id))
 			{
@@ -75,11 +75,6 @@
 			{
 				return false;
 			}
-		}
-
-		static function modification_Mot_De_Passe($mail, $mdp, 1)
-		{
-			Database::modification_Mot_De_Passe($mail, $mdp, 1);
 		}
 
 	}

@@ -12,11 +12,11 @@
 				$rand = chr(rand(33,126));
 				$tmpMDP .= $rand;
 			}
-			return $tmpMDP;
+			return self::hachage($tmpMDP);
 		}
 
 		static function hachage($mdp)
 		{
-			password_hash($mdp);
+			return password_hash($mdp, PASSWORD_BCRYPT);
 		}
 	}

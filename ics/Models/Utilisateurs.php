@@ -3,12 +3,19 @@
 	class Utilisateurs
 	{
 
-		static function creation_Utilisateur($user)
+		function creation_Utilisateur($user)
 		{
 			$erreurs = [];
             foreach($fiche as $attribut => $valeur)
             {
-                $this->$attribut = $valeur;
+            	if($attribut == "Mot_De_Passe")
+            	{
+            		MDP::generationMDP();
+            	}
+            	else
+            	{
+                	$this->$attribut = $valeur;
+                }
 			}
 			return true;
 		}
@@ -31,13 +38,18 @@
 			}
 		}
 
-		static function modification_Utilisateur()
+		function modification_Utilisateur()
 		{
 			Database::modification_Utilisateur($this);
 		}
 
-		static function sauvegarde_Utilisateur()
+		function sauvegarde_Utilisateur()
 		{
-			Database::creation_Utilisateur();
+			Database::creation_Utilisateur($this);
+		}
+
+		static function modification_Mot_De_Passe($mail, $mdp, 1)
+		{
+			Database::modification_Mot_De_Passe($mail, MDP::hachage($mdp), 1);
 		}
 	}

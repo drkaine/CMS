@@ -28,10 +28,9 @@
     		}
     		else
     		{
-    			$sql = "SELECT * FROM $table WHERE `Archive` = :archive";
+    			$sql = "SELECT * FROM $table WHERE `Archive` = 1";
     		}
             $data = self::$conn->prepare($sql);
-            $data->bindValue(":archive", $archive);
             $data->execute();
             return $data->fetchAll(PDO::FETCH_OBJ);
     	}
@@ -400,3 +399,4 @@
 	// Database::modification_FicheA($fiche);
 	// var_dump(Database::afficher_Info_Utilisateur("Id_Utilisateur", 1));
 	// var_dump(Database::afficher_Info_Utilisateur("Mail", "E@ics.com"));
+	// var_dump(Database::afficher_Info("utilisateurs", "Mail", "hbk"));
