@@ -12,7 +12,7 @@
 				$rand = chr(rand(33,126));
 				$tmpMDP .= $rand;
 			}
-			return self::hachage($tmpMDP);
+			return $tmpMDP;
 		}
 
 		static function hachage($mdp)

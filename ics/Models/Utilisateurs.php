@@ -1,6 +1,7 @@
 <?php
-	// require("Database.php");
-	// require("MDP.php");
+	require("Database.php");
+	require("MDP.php");
+	require("Mail.php");
 	class Utilisateurs
 	{
 
@@ -11,7 +12,9 @@
             {
             	if($attribut == "Mot_De_Passe")
             	{
-            		$this->$attribut = MDP::generationMDP();
+            		$this->$attribut = MDP::GenerationMDP($valeur);
+            		Mail::creation_Mot_De_Passe($this->Mail,$this->Mot_De_Passe);
+            		MDP::hachage($this->Mot_De_Passe);
             	}
             	else
             	{
@@ -56,7 +59,7 @@
 		}
 	}
 
-	// $user = ["Nom"=>"h","Prenom"=>"h","Mail"=>"h@ics.com","Niveau"=>null,"Archive"=>Null,"Mot_De_Passe"=>"h"];
- //    $u = new Utilisateurs();
- //    $u->creation_Utilisateur($user);
- //    var_dump($u->sauvegarde_Utilisateur());
+	$user = ["Nom"=>"h","Prenom"=>"h","Mail"=>"iii@ics.com","Niveau"=>null, "Mot_De_Passe"=>""];
+    $u = new Utilisateurs();
+    $u->creation_Utilisateur($user);
+    var_dump($u->sauvegarde_Utilisateur());

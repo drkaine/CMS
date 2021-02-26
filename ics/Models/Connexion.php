@@ -1,26 +1,31 @@
 <?php
 	
 	require("Database.php");
+	require("MDP.php");
 
 	class Connexion
 	{
 
 		static function login($mail,$password)
 		{
-			$mdp = MDP::hachage($password);
 			$comp = Database::afficher_Info("utilisateurs", "Mail", $mail);
+			var_dump($comp);
+			var_dump($comp->Mot_De_Passe);
+			var_dump($password);
+			var_dump(password_verify($password, $comp->Mot_De_Passe ));
+			var_dump($mail);
 			if($comp === false)
 			{
 				return "Couple mail et mot de passe incorrect";
 			}
-			else if ($comp->Mail == $mail and $comp->Mot_De_Passe == $mdp)
+			else if ($comp->Mail == $mail && password_verify($password, $comp->Mot_De_Passe))
 			{
 				$_SESSION['Id_Utilisateur'] = $comp->Id_Utilisateur;
 				return $comp->Niveau;
 			}
 			else
 			{
-				return "Couple mail et mot de passe incorrect";
+				return "Couple mail et mot de passe incorrect 2";
 			}
 	
 		}
@@ -38,3 +43,4 @@
 		}
 		
 	}
+	var_dump(Connexion::login("ii@ics.com","hello"));
