@@ -1,7 +1,7 @@
 <?php
 	
-	require("Database.php");
-	require("MDP.php");
+	// require("Database.php");
+	// require("MDP.php");
 
 	class Connexion
 	{
@@ -21,16 +21,17 @@
 			else if ($comp->Mail == $mail && password_verify($password, $comp->Mot_De_Passe))
 			{
 				$_SESSION['Id_Utilisateur'] = $comp->Id_Utilisateur;
-				return $comp->Niveau;
+				$_SESSION["Niveau"] = $comp->Niveau;
+				return true;
 			}
 			else
 			{
-				return "Couple mail et mot de passe incorrect 2";
+				return "Couple mail et mot de passe incorrect";
 			}
 	
 		}
 
-		static function Deconexion($POST,$Session ){
+		static function Deconexion(){
 
 			if(isset($POST["Deco"])){
 
@@ -41,6 +42,22 @@
 			  }
 		  
 		}
+
+		static function super_Admin()
+		{
+			if($_SESSION["Niveau"] == 0 or $_SESSION["Niveau"] == Null)
+			{
+				header("Location : interface.php");
+			}
+		}
+
+		static function relocalisation()
+		{
+			if(empty($_SESSION))
+			{
+				header("Location : interface.php");
+			}
+		}
 		
 	}
-	var_dump(Connexion::login("ii@ics.com","hello"));
+	// var_dump(Connexion::login("ii@ics.com","hello"));

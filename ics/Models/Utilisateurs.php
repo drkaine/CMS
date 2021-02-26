@@ -1,7 +1,8 @@
 <?php
-	require("Database.php");
-	require("MDP.php");
-	require("Mail.php");
+	// require("Database.php");
+	// require("MDP.php");
+	// require("Mail.php");
+
 	class Utilisateurs
 	{
 
@@ -63,7 +64,7 @@
 		}
 	}
 
-	$user = ["Nom"=>"h","Prenom"=>"h","Mail"=>"azz@ics.com","Niveau"=>"Null"];
-    $u = new Utilisateurs();
-    $u->creation_Utilisateur($user);
-    var_dump($u->sauvegarde_Utilisateur());
+	// $user = ["Nom"=>"h","Prenom"=>"h","Mail"=>"azz@ics.com","Niveau"=>"Null"];
+ //    $u = new Utilisateurs();
+ //    $u->creation_Utilisateur($user);
+ //    var_dump($u->sauvegarde_Utilisateur());
