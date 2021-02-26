@@ -1,6 +1,6 @@
 <?php
 
-	class Verificattion
+	class Verification
 	{
 		///// secu formulaire ajout utilisateur ///////
 		static function verificationIdentifiant($P)
@@ -42,7 +42,7 @@
         		foreach($P as $key => $value){
 		            $post[] = $key."=".$value;
 		        }
-		        header("Location: index.php?page=inscription&erreurs=".implode("--", $erreurs)."&".implode("&", $post));
+		        header("Location: utilisateur.php?page=inscription&erreurs=".implode("--", $erreurs)."&".implode("&", $post));
 		        exit;
 			}
 			else
@@ -50,15 +50,16 @@
 				if (User::createUser($P))
 				{
 					User::createUser($P);
-					header("Location: index.php?page=inscriptionreussi");
+					header("Location: utilisateur.php?page=inscriptionreussi");
 					exit;
 				}
 				else
 				{
-					header("Location : index.php?page=inscription&erreur=nonEnregistre");
+					header("Location : utilisateur.php?page=inscription&erreur=nonEnregistre");
 				}
 			}
 		}
+
 
 		///// secu formulaire ajout fiches métiers ///////
 		static function verificationMetier($P)
@@ -95,7 +96,7 @@
 				foreach($P as $key => $value){
 					$post[] = $key."=".$value;
 				}
-				header("Location: index.php?page=inscription&erreurs=".implode("--", $erreurs)."&".implode("&", $post));
+				header("Location: fiche.php?page=inscription&erreurs=".implode("--", $erreurs)."&".implode("&", $post));
 				exit;
 			}
 			else
@@ -103,14 +104,15 @@
 				if (Database::creation_Fiche($P))
 				{
 					Database::creation_Fiche($P);
-					header("Location: index.php?page=inscriptionreussi");
+					header("Location: fiche.php?page=creationDeFicheReussi");
 					exit;
 				}
 				else
 				{
-					header("Location : index.php?page=inscription&erreur=nonEnregistre");
+					header("Location : fiche.php?page=inscription&erreur=nonEnregistre");
 				}
 			}
 		}
+
 
 	}

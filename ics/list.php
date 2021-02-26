@@ -1,42 +1,43 @@
 <?php 
 
 //  LIST
-        //Create MVC
-        //Page login 
-        //Page interface 
-        //Page Ajout fiche
-        //Page Ajout user
-        //Page moderation
-        //Page archive
-            // Interface login + Hash mdp + Secu + Cookies retenir MDP
-            // Formulaire ajout fiche
-            // bouton supp(archive) /  bouton modifier (modal ?)
-            // Boutton Deco
-                // Responsive
+                // Secu formu ----------------------> EVE
+                // Tous lié avec la BDD-------------------> FRED
+                // Corriger bug back ----------------------> KEV
+                // Responsive / design 
                 // Refactoring
-           
-
-                                // SUPER ADMIN
-                                        //  Page ajout utilisateur
-                                        // Page archives
-                                            // espace moderation
-                                            //  Gerer les users 
-                                            // Acces archives
-                                            // Bouton re mettre en ligne une fiche by archives
+                // Page Gerer les users 
+               // Acces archives
+               // Page Accueil css
+               // Gerer Barre nav (admin / super admin)
+                // Bouton re mettre en ligne une fiche by archives
+                // Lien mdp oublié
+                //bouton modif
+                // Remplir la BDD
+                // interface moderation
                                          
-                                //ADMIN
+                      
                                     
                                                             // MAYBE
                                                                 // Ajout des fonctions diplomes et certifiction lié avec metier
                                                                 // Liste formation
                                                                 // Centre formation lié au titre
-                                                                //
+                                                                // Light/ Dark mode
 
                                                                 
-    // CLASS
-        // Database
-        // Admin -> Crée modif supp , login
-        // Super Admin -> Crée modif supp , login, ajout utilisateur , desarchive
-        // Fiche 
-        // Co
-        // Verif formu
+    
+
+        //  DONE
+                   //Create MVC
+                   // CHOISIR FONT
+                   //Page login (front fini need back)
+                   //Page interface  
+                     // Boutton Deco
+                     //Page Ajout user 
+                     //Page archive
+                        //Page Ajout fiche  
+                    //Page Ajout user -------------------------------> EVE
+                    //Page moderation
+                    //Page MDP oublié
+                    // Interface login + Hash mdp + Secu + Cookies retenir MDP 
+                        // Formulaire ajout fiche

@@ -228,7 +228,7 @@
                 
                 $req = self::$conn->prepare($sql);
                 $req->bindValue(":Id", $id);
-                $req->bindValue(":Archive", $archive);
+                $req->bindValue(":archive", $archive);
                 $req->execute();
                 return true;
             } 

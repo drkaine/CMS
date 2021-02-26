@@ -24,6 +24,9 @@
 
 		static function ajout_Fichier($file)
 		{
+			foreach ($ as $key => $value) {
+				
+			}
 			$tmp = explode(".", $file->Fichier["name"]);
             $ext = $tmp[sizeof($tmp)-1];
             $nameFile = $file->Id_Fiche.".".$ext;
@@ -38,6 +41,7 @@
 
 		static function afficher_Fichier($file)
 		{
-			return self::$pathFile.$file->("Id_Fiche")."pdf";
+			return self::$pathFile . $file->Id_Fiche . "pdf";
 		}
+
 	}

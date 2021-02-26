@@ -3,66 +3,206 @@ body{
     margin:0px;
     background-color: white ;
     height: auto;
- 
+    font-family: Arial, Helvetica, sans-serif;
+    *box-sizing: border-box;
 }
-.body_mep{
-    background-color: white ;
 
-}
+
 
                                                         /* Header */
 .header1{
-    background-color: white;
-    height: 35vh ;
+    background-color: rgb(255, 255, 255);
+    height: 15%;
+    width: 100%;
     display: flex;
     flex-direction: row;
-    margin-top: 0.5%;
-
-
+    margin-bottom: 2%;
+  
 }
 
+                                /* Logo en haut a gauche header */
+.logo_header{
+
+    height: 20vh;
+    width: 20vw;
+    margin-left: 5%;                                                              
+    padding-top: 5%;                               
+    padding-bottom: 1%;                                
+                                  
+                                }         
+.img_head{
+    width: 100%;
+}
+
+                                 /* LOGIN */
+.login{
+    display: flex;
+    padding-left: 50vw;
+    padding-top: 5vh;
+    font-size: 2vh;
+    
+}
+                                /* DECO */
+.nav1{
+    display: flex;
+    padding-left: 30%;
+    padding-top: 10vh;
+    font-size: 2vh;
+    
+}
+
+.Button_Deco:hover {
+	background:linear-gradient(to bottom, #dbdede 5%, #a3a3a3 100%);
+	background-color:#dbdede;
+}
+.Button_Deco:active {
+	position:relative;
+	top:1px;
+}
+                                                            /* BUTTON */
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+   
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #7c7a7a;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+  
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #90a7c2;
+}
+                                                          
+
+                                                     /* BODY */
 .conteneur {
     display: flex;
-    flex-direction: row;
-    height: auto;    
-    width: 100%;
-    
-    color: black;
-    box-sizing: content-box;
-}
-
-.body_left{
-    display: flex;
-    background-color: white;
-    width: 13%;
-
-}
-
-.body_mid{
-    display: flex;
-    background-color: white;
-    width: 74%;
-    height: auto;
     flex-direction: column;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    border-color: red;
-    margin-left: 2px;
-    margin-right: 2px;
+    height: auto;    
+    padding-top:3%;
+    background: rgba(156, 154, 154, 0.397);
+    box-sizing: content-box;
+    font-family: arial, sans-serif;
 
+}                                                      
+                                                       /* PAGE LOGIN */
+                     /* IMG ics accueil */
+.img_accueil{
+    height: 100%;
+    width: 100%;
+   
+        }   
+.text_accueil{
+    position: absolute;
+    margin-top:15% ;
+    margin-left: 15% ;
+    font-size: 5vw;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.411);
+    border-radius: 15px 15px 15px 15px;
+    padding: 1%;
+    border: solid;
 }
 
-.body_right{
-    display: flex;
+                                                    /* PAGE FICHE */
+   .fiche_mep{
     background-color: white;
-    width: 13%;
 
-}
+    border-color: black;
+    border: 5px solid;
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 2%;
+    margin-bottom:5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 3%;
+    padding-bottom: 5%;
+    font-size: 25px;
+    
+   }
+
+
+
+
+                                                        /* FOOTER */
 .footer1{
-    background:white;
+    background:rgb(255, 255, 255);
     bottom:0;
     width:100%;
-    height: 15vh;
-    margin-top: 1%;
+    height: 40px;
+  
     text-align: center;
+}
+
+                    /* Copyright */
+.text_footer{
+    margin-top: 5vh;
+    font-size: 3vh ;
+}
+
+          /* Interface */ 
+
+          .titre{
+            text-align: center;
+            margin-top:40px;
+            margin-bottom:40px;
+            font-family: Arial, sans-serif;
+        
+        }                            
+        
+        .marge{
+            padding-left: 10vw;
+            padding-right: 50vw;
+        }
+        
+          
+          
+        .ligne{
+            display: flex;
+            font-family: Arial, sans-serif;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            padding-top:10px;
+            padding-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            justify-content: space-between;
+            flex-direction: row;
+            width: 100%;
+         
+        }
+         
+        .ligne a{
+            color:black;
+            text-decoration: none;
+           
+        }
+
+
+                                                        /*  PAGE FORMULAIRE USER */
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.icon{
+    margin-left: 60%;
+}
+.logo_taille_archive{
+    height: 50px;
+    width: 50px;
 }

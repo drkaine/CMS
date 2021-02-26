@@ -1,6 +1,6 @@
 <?php
 
-	class Archive extends Fiche
+	class Archive 
 	{
 
 		static function archivage($table, $id, $archive = 1)
