@@ -52,8 +52,8 @@
 
     		try 
     		{
-    			self::$conn->beginTransaction();
-    			$sql = "INSERT INTO `fiches` (`Titre`, `Code_ROM`, `Description_Courte`, `Description_Detaille`, `Photo`, `Fichier`, `Archive`) VALUES (:Titre, :Code_ROM, :Description_Courte, :Description_Detaille, :Photo, :Fichier, :Archive)";
+    			// self::$conn->beginTransaction();
+    			$sql = "INSERT INTO `fiches` (`Titre`, `Code_ROM`, `Description_Courte`, `Description_Detaille`, `Photo`, `Fichier`, ) VALUES (:Titre, :Code_ROM, :Description_Courte, :Description_Detaille, :Photo, :Fichier)";
 
     			 $req = self::$conn->prepare($sql);
                 $req->bindValue(":Titre", $fiche->Titre);
@@ -62,14 +62,14 @@
                 $req->bindValue(":Description_Detaille", $fiche->Description_Detaille);
                 $req->bindValue(":Photo", $fiche->Photo);
                 $req->bindValue(":Fichier", $fiche->Fichier);
-                $req->bindValue(":Archive", $fiche->Archive);
+                
 
                 $req->execute();
                 
                 $fiche->Id_Fiche = self::$conn->lastInsertId();
-                self::creation_Fiche_Competence($fiche);
+                // self::creation_Fiche_Competence($fiche);
                
-                self::$conn->commit();
+                // self::$conn->commit();
                 return true;
     			
     		} 
@@ -87,7 +87,7 @@
             {
                 self::$conn->beginTransaction();
                 
-                $sql = "UPDATE `fiches` SET `Titre` = :Titre, `Code_ROM` = :Code_ROM, `Description_Courte` = :Description_Courte, `Description_Detaille` = :Description_Detaille, `Photo` = :Photo, `Fichier` = :Fichier, `Archive` = :Archive WHERE `fiches`.`Id_Fiche` = :Id_Fiche ";
+                $sql = "UPDATE `fiches` SET `Titre` = :Titre, `Code_ROM` = :Code_ROM, `Description_Courte` = :Description_Courte, `Description_Detaille` = :Description_Detaille, `Photo` = :Photo, `Fichier` = :Fichier WHERE `fiches`.`Id_Fiche` = :Id_Fiche ";
                 
                 $req = self::$conn->prepare($sql);
                 $req->bindValue(":Id_Fiche", $fiche->Id_Fiche);
@@ -97,13 +97,12 @@
                 $req->bindValue(":Description_Detaille", $fiche->Description_Detaille);
                 $req->bindValue(":Photo", $fiche->Photo);
                 $req->bindValue(":Fichier", $fiche->Fichier);
-                $req->bindValue(":Archive", $fiche->Archive);
 
                 $req->execute();
 
-                self::supression_File_Competence($fiche);
+                // self::supression_File_Competence($fiche);
 
-                self::creation_File_Competence($fiche);
+                // self::creation_File_Competence($fiche);
                 
                 self::$conn->commit();
                 return true;
@@ -179,14 +178,14 @@
     		self::creation_Connexion();
     		try
             {                
-                $sql = "UPDATE `utilisateurs` SET  `Nom` = :Nom, `Prenom` = :Prenom, `Mail` = :Mail, `Archive` = :Archive, `Niveau` = :Niveau, `Mot_De_Passe` = :Mot_De_Passe WHERE `utilisateur`.`Id_Utilisateur` = :Id_Utilisateur ";
+                $sql = "UPDATE `utilisateurs` SET  `Nom` = :Nom, `Prenom` = :Prenom, `Mail` = :Mail, `Niveau` = :Niveau, `Mot_De_Passe` = :Mot_De_Passe WHERE `utilisateur`.`Id_Utilisateur` = :Id_Utilisateur ";
                 
                 $req = self::$conn->prepare($sql);
                 $req->bindValue(":Id_Utilisateur", $user->Id_Utilisateur);
                 $req->bindValue(":Nom", $user->Nom);
                 $req->bindValue(":Prenom", $user->Prenom);
                 $req->bindValue(":Mail", $user->Mail);
-                $req->bindValue(":Archive", $user->Archive);
+               
                 $req->bindValue(":Niveau", $user->Niveau);
                 $req->bindValue(":Mot_De_Passe", $user->Mot_De_Passe);
 
@@ -224,8 +223,8 @@
     		self::creation_Connexion();
     		try
             {                
-                $sql = "UPDATE $table SET `Archive` = :archive WHERE `Id_" . substr($table, strlen($table)-1) ."` = :Id ";
-                
+                $sql = "UPDATE $table SET `Archive` = :archive WHERE `Id_" . ucfirst(substr($table, 0, strlen($table)-1)) ."` = :Id ";
+                var_dump($sql);
                 $req = self::$conn->prepare($sql);
                 $req->bindValue(":Id", $id);
                 $req->bindValue(":archive", $archive);

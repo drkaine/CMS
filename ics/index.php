@@ -11,12 +11,16 @@ require("Models/Autoloader.php");
 
         if(isset($_POST["Deco"])){
     
-            Connexion::Deconexion($_POST,$_SESSION);
+            Connexion::Deconnexion($_POST,$_SESSION);
 
           }
-          if (!empty($_SESSION['Nom'])){
-            header("location: interface.php");
-          }
+        // else if (isset($_POST['Mail'] and isset($_POST["Mot_De_Passe"])))
+        // {
+        // 	Connexion::login($_POST["Mail"],$_POST["Mot_De_Passe"]);
+        // }
+          // if (!empty($_SESSION['Nom'])){
+          //   header("location: interface.php");
+          // }
 
 // var_dump($_POST);
 
