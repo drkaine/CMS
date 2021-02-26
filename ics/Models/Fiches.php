@@ -10,6 +10,14 @@
             {
                 $this->$attribut = $valeur;
 			}
+			if(!in_array("Photo", $fiche))
+			{
+				$this->Photo = Null;
+			}
+			if(!in_array("Fichier", $fiche))
+			{
+				$this->Fichier = Null;
+			}
 			return true;
 		}
 

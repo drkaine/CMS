@@ -6,21 +6,25 @@
 	{
 
 		function creation_Utilisateur($user)
-		{
-			
+		{			
             foreach($user as $attribut => $valeur)
             {
-            	if($attribut == "Mot_De_Passe")
+            	if($attribut == "Niveau")
             	{
-            		$this->$attribut = MDP::GenerationMDP($valeur);
-            		Mail::creation_Mot_De_Passe($this->Mail,$this->Mot_De_Passe);
-            		MDP::hachage($this->Mot_De_Passe);
-            	}
-            	else
-            	{
+            		if($valeur == "Null")
+            		{
+            			$this->$attribut = Null;
+            		}
                 	$this->$attribut = $valeur;
-                }
+            	}
+            	$this->$attribut = $valeur;
 			}
+			if(!in_array("Mot_De_Passe", $user))
+        	{
+        		$this->Mot_De_Passe = MDP::GenerationMDP($valeur);
+        		Mail::creation_Mot_De_Passe($this->Mail,$this->Mot_De_Passe);
+        		$this->Mot_De_Passe = MDP::hachage($this->Mot_De_Passe);
+        	}
 			return true;
 		}
 
@@ -59,7 +63,7 @@
 		}
 	}
 
-	$user = ["Nom"=>"h","Prenom"=>"h","Mail"=>"iii@ics.com","Niveau"=>null, "Mot_De_Passe"=>""];
+	$user = ["Nom"=>"h","Prenom"=>"h","Mail"=>"azz@ics.com","Niveau"=>"Null"];
     $u = new Utilisateurs();
     $u->creation_Utilisateur($user);
     var_dump($u->sauvegarde_Utilisateur());
