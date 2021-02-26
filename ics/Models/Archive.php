@@ -15,6 +15,6 @@
 
 		static function afficher_Info_Archive($table, $id, $valeur)
 		{
-			return Database::afficher_Info($table; $id, $valeur);
+			return Database::afficher_Info($table, $id, $valeur);
 		}
 	}
