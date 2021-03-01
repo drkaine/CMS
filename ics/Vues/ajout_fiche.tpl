@@ -8,16 +8,16 @@
   <form enctype="multipart/form-data" 
    action="interface.php" method="post">
     <label for="titre">Titre</label>
-    <input type="text" id="Titre" name="Titre" placeholder="Entrez un titre..">
+    <input class="formulaire" type="text" id="Titre" name="Titre" placeholder="Entrez un titre..">
 
     <label for="rom">Code ROM</label>
-    <input type="text" id="ROM" name="Code_ROM" placeholder="Entrez le code ROM..">
+    <input class="formulaire" type="text" id="ROM" name="Code_ROM" placeholder="Entrez le code ROM..">
 
     <label for="descric">Description courte</label>
-    <input type="text" id="Description_Courte" name="Description_Courte" placeholder="Entrez une description courte..">
+    <input  class="formulaire"type="text" id="Description_Courte" name="Description_Courte" placeholder="Entrez une description courte..">
 
     <label for="descrid">Description Détaillée</label>
-    <input type="text" id="Description_Detaille" name="Description_Detaille" placeholder="Entrez une description détaillée..">
+    <input class="formulaire"type="text" id="Description_Detaille" name="Description_Detaille" placeholder="Entrez une description détaillée.."><br>
 
     <label for="photo">Téléchargez une photo</label>
     <input type="file" id="Photo" name="Photo1"><br>

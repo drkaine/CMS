@@ -340,4 +340,50 @@
 
         }
 
+        function generateView_ajout_compet($admin,$input){
+                $ContentView="";
+                $template = file_get_contents("Vues/template.tpl");
+
+                if($admin == "Super_Admin"){
+                        $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                        }
+                else{
+                        $baniere = file_get_contents("Vues/bar_nav.tpl");  
+                }
+
+                $compet = file_get_contents("Vues/compet.tpl"); 
+
+
+                $conn = new PDO('mysql:host=localhost;dbname=CSM;','root');
+
+                $allsearch = $conn->query('SELECT * FROM competences ORDER BY Id_Competence DESC');
+
+                if(isset($input['q']) AND !empty($input['q'])){
+                        $recherche = htmlspecialchars($input['q']);
+                        $allsearch = $conn->query('SELECT Savoir_Faire FROM competences WHERE Savoir_Faire LIKE "%'.$recherche.'%" ORDER BY Id_Competence DESC');
+                    
+                    }
+      
+                      
+                  $i = 0;
+                        if($allsearch->rowCount() > 0){
+                            
+                            while($search = $allsearch->fetch()){
+
+                                $compet = str_replace("<!--compet$i-->", $search["Savoir_Faire"], $compet); 
+                                $i++;
+                            }
+                        }else{
+                          
+                          echo  " <p>Aucun savoir-faire trouvé</p>";
+            
+                           
+                        }
+                    
+                        
+                $template = str_replace("<!--ContentView-->", $compet, $template);
+                return str_replace("<!--baniere-->", $baniere, $template);
+
+                 }
+
     }

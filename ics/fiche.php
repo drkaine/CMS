@@ -7,7 +7,7 @@ require("Models/Autoloader.php");
     $input = implode($_POST);
         $vue = new Vues();
 
-        echo $vue->generateView_fiche($fiche,$input);       
+        echo $vue->generateView_fiche($fiche,$input, Connexion::super_Admin());       
 
     
         Connexion::relocalisation();

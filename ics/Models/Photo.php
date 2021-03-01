@@ -31,8 +31,8 @@
 		static function ajout_Photo($img)
 		{
 			$tmp = explode(".", $img->Photo1["name"]);
-			$tmp2 = explode(".", $img->Photo2["name"]);
-			$tmp3 = explode(".", $img->Photo3["name"]);
+			// $tmp2 = explode(".", $img->Photo2["name"]);
+			// $tmp3 = explode(".", $img->Photo3["name"]);
             $ext = $tmp[sizeof($tmp)-1];
             for($i = 1; $i <4; $i++) 
             {

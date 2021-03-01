@@ -47,9 +47,9 @@
 			}
 			else
 			{
-				if (User::createUser($P))
+				if (Utilisateurs::creation_Utilisateur($P))
 				{
-					User::createUser($P);
+					Utilisateurs::creation_Utilisateur($P);
 					header("Location: utilisateur.php?page=inscriptionreussi");
 					exit;
 				}
@@ -76,7 +76,8 @@
 			{
 				$erreurs[] = "romNull";
 			}
-			else if(strlen($P["rom"])>5)
+			/*else if(strlen($P["rom"])>5)*/
+			else if(strlen("[A-N]{1][0-9]{4}",$P["rom"]))
 			{
 				
 				echo 'Votre code ROM est trop long';
@@ -89,6 +90,15 @@
 			{
 				$erreurs[] = "descriptiondNull";
 			}
+			else if(empty($P["savf"]))
+			{
+				$erreurs[] = "savfNull";
+			}
+			else if(empty($P["sav"]))
+			{
+				$erreurs[] = "savNull";
+			}
+
 
 			if($erreurs != null)
 			{
