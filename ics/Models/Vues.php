@@ -20,14 +20,20 @@
 
                         // Generate Page Fiche
 
-                function generateView_fiche($fiche,$input){
+                function generateView_fiche($fiche,$input,$admin){
                         $ContentView ="";
 
                          $template = file_get_contents("Vues/template.tpl");
 
                         $temp_fich = file_get_contents("Vues/fiche.tpl");
 
-                        $baniere = file_get_contents("Vues/bar_nav.tpl");
+                        if($admin == "Super_Admin"){
+                                $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                                 }
+                        else{
+                                $baniere = file_get_contents("Vues/bar_nav.tpl");  
+                        }
+
 
                         foreach($fiche as $fiches){
 
@@ -48,16 +54,20 @@
                 return str_replace("<!--baniere-->", $baniere, $template);
         }           // Generate View Interface
 
-                function generateview_interface($fiche){              
+                function generateview_interface($fiche,$admin){              
                         $ContentView = "";
 
-                        $Message = '<h1 class="marge">Bievenue dans le gestionaire de fiches metiers du CSM </h1> ';
+                        $Message = '<h1 class="titre_accueil">Bienvenue dans le gestionnaire de fiches metiers du CSM</h1>';
 
-                       $template = file_get_contents("Vues/template.tpl");                                       
-                       $interface = file_get_contents("Vues/interface.tpl");   
-                       $baniere = file_get_contents("Vues/bar_nav.tpl");
-
-                     
+                       $template = file_get_contents("Vues/template.tpl");                                     
+                       $interface = file_get_contents("Vues/interface.tpl"); 
+                       
+                       if($admin == "Super_Admin"){
+                                $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                                 }
+                        else{
+                                $baniere = file_get_contents("Vues/bar_nav.tpl");  
+                        }
 
                         foreach($fiche as $fiches){
                                 $c = str_replace("<!--Titre-->", $fiches->Titre, $interface);
@@ -71,14 +81,27 @@
                        return str_replace("<!--baniere-->", $baniere, $template);
                 }
 
+                
+
+
+
+
+
+
                         // Supprimer Fiche
-                function generateview_supp_fiche($fiche,$input){              
+                function generateview_supp_fiche($fiche,$input,$admin){              
                     $ContentView="";
                     $template = file_get_contents("Vues/template.tpl");                                       
                       
                     $Supp_fiche = file_get_contents("Vues/supprimer_fiche.tpl");   
                     
-                    $baniere = file_get_contents("Vues/bar_nav.tpl");
+                    if($admin == "Super_Admin"){
+                        $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                         }
+                else{
+                        $baniere = file_get_contents("Vues/bar_nav.tpl");  
+                }
+
                     
 
                     foreach($fiche as $fiches){
@@ -130,41 +153,106 @@
                          }
                         // Archives Super Admin
 
-                        function generateview_archives(){              
+                        function generateview_archives($fiche,$admin){                 
+                        $ContentView = "";
 
-                            $template = file_get_contents("Vues/template.tpl");                                       
-                              
-                            $archives = file_get_contents("Vues/archives.tpl");   
-                            
-                            $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
-                             
-                          
-                         
-                            $template = str_replace("<!--ContentView-->", $archives, $template);
-                            return str_replace("<!--baniere-->", $baniere, $template);
-                     }
+                        $Message = '<h1 class="titre_accueil">Archives</h1> ';
 
+                       $template = file_get_contents("Vues/template.tpl");                                     
+                       $interface = file_get_contents("Vues/archives.tpl"); 
+                       
+                       if($admin == "Super_Admin"){
+                                $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                                 }
+                        else{
+                                $baniere = file_get_contents("Vues/bar_nav.tpl");  
+                        }
+
+                        foreach($fiche as $fiches){
+                                $c = str_replace("<!--Titre-->", $fiches->Titre, $interface);
+                                $c = str_replace("<!--ROM-->", $fiches->Code_ROM, $c);
+                                $c = str_replace("<!--ID-->", $fiches->Id_Fiche, $c);  
+                                $ContentView .= $c;
+                        }
+                     
+                        $template = str_replace("<!--Message-->", $Message, $template);
+                       $template = str_replace("<!--ContentView-->", $ContentView, $template);
+                       return str_replace("<!--baniere-->", $baniere, $template);
+                }
+
+                
 
                 //  generate view ajout_fiche
 
-                function generateView_ajout_fiche(){
-
+                function generateView_ajout_fiche($admin){
+                        
                         $template = file_get_contents("Vues/template.tpl");
-                        $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                        if($admin == "Super_Admin"){
+                                $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                                 }
+                        else{
+                                $baniere = file_get_contents("Vues/bar_nav.tpl");  
+                        }
+        
                         $ajout = file_get_contents("Vues/ajout_fiche.tpl"); 
 
                         $template = str_replace("<!--ContentView-->", $ajout, $template);
                         return str_replace("<!--baniere-->", $baniere, $template);
                 }
 
+                                // MODIF FICHE
+
+               function generateView_modif_fiche($fiche,$admin,$id){
+                        $ContentView="";
+                        $template = file_get_contents("Vues/template.tpl");
+                        if($admin == "Super_Admin"){
+                                $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                                }
+                        else{
+                                $baniere = file_get_contents("Vues/bar_nav.tpl");  
+                        }
+
+                        $modif = file_get_contents("Vues/modif_fiche.tpl"); 
+
+                         foreach($fiche as $fiches){
+
+                                if( $fiches->Id_Fiche == $id){
+                                      
+                                $c = str_replace("<!--Titre-->", $fiches->Titre, $modif);
+                                $c = str_replace("<!--ROM-->", $fiches->Code_ROM, $c);  
+                                $c = str_replace("<!--Description_Courte-->", $fiches->Description_Courte, $c);
+                                $c = str_replace("<!--Description_Detaille-->", $fiches->Description_Detaille, $c);  
+                                $c = str_replace("<!--Photo-->", $fiches->Photo, $c);
+                                $c = str_replace("<!--ID-->", $fiches->Id_Fiche, $c);
+                                $ContentView .= $c;
+                                
+                        }
+                       
+
+
+                }
+
+                        $template = str_replace("<!--ContentView-->", $ContentView, $template);
+                        return str_replace("<!--baniere-->", $baniere, $template);
+
+
+
+
+                
+
+        }
+
+
+
                 // generate view reinit_mdp
-                function generateView_reinit_mdp(){
+                function generateView_reinit_mdp($page){
 
                         $template = file_get_contents("Vues/template.tpl");
                         $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
                         $reinit = file_get_contents("Vues/reinit_mdp.tpl"); 
 
                         $template = str_replace("<!--ContentView-->", $reinit, $template);
+                        $template = str_replace("<--!action_page.php-->", $page, $template);
                         return str_replace("<!--baniere-->", $baniere, $template);
 
                 }
@@ -213,26 +301,43 @@
                                 return str_replace("<!--baniere-->", $baniere, $template);
                 }
 
-                function generateView_modif_utilisateur($users){
+                                                //  MODIF USER
+
+                    function generateView_modif_user($user,$admin,$id){
                         $ContentView="";
                         $template = file_get_contents("Vues/template.tpl");
-                        $baniere = file_get_contents("Vues/bar_nav_admin.tpl");    
-                        $utilisateur = file_get_contents("Vues/ajout_utilisateur.tpl");
-
-                        foreach($users as $user){
-                                $c = str_replace("<!--Nom-->", $user->Nom, $utilisateur);
-                                $c = str_replace("<!--Prenom-->", $user->Prenom, $c);
-                                $c = str_replace("<!--Mail-->", $user->Mail, $c);
-                                $c = str_replace("<!--Niveau-->", $user->Niveau, $c); 
-                                $c = str_replace("<!--ID-->", $user->Id_Utilisateur, $c);
-                                $ContentView .= $c;
+                        if($admin == "Super_Admin"){
+                                $baniere = file_get_contents("Vues/bar_nav_admin.tpl");
+                                }
+                        else{
+                                $baniere = file_get_contents("Vues/bar_nav.tpl");  
                         }
 
-                        
-    
-                        
-                        $template = str_replace("<!--ContentView-->", $utilisateur, $template);
-                                return str_replace("<!--baniere-->", $baniere, $template);
+                        $modif = file_get_contents("Vues/modif_utilisateur.tpl"); 
+
+                         foreach($user as $users){
+
+                                if( $users->Id_Utilisateur == $id){
+                                      
+                                $c = str_replace("<!--Nom-->", $users->Nom, $modif);
+                                $c = str_replace("<!--Prenom-->", $users->Prenom, $c);  
+                                $c = str_replace("<!--Mail-->", $users->Mail, $c);
+                                $c = str_replace("<!--ID-->", $users->Id_Utilisateur, $c);
+                                $c = str_replace("<!--MDP-->", $users->Mot_De_Passe, $c);       
+                                $ContentView .= $c;
+                                
+                        }
+                       
+
+
                 }
+
+                        $template = str_replace("<!--ContentView-->", $ContentView, $template);
+                        return str_replace("<!--baniere-->", $baniere, $template);
+
+
+                
+
+        }
 
     }

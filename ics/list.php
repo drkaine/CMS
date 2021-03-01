@@ -1,20 +1,14 @@
 <?php 
 
 //  LIST
-                // Secu formu ----------------------> EVE
-                // Tous lié avec la BDD-------------------> FRED
-                // Corriger bug back ----------------------> KEV
-                // Responsive / design 
+                // Secu formu ------------> Lié et finir
+                // Connexion 
+                // Compétence
                 // Refactoring
-                // Page Gerer les users 
-               // Acces archives
-               // Page Accueil css
-               // Gerer Barre nav (admin / super admin)
-                // Bouton re mettre en ligne une fiche by archives
+                // Page Accueil css
                 // Lien mdp oublié
-                //bouton modif
                 // Remplir la BDD
-                // interface moderation
+                // Responsive / design 
                                          
                       
                                     
@@ -41,3 +35,6 @@
                     //Page MDP oublié
                     // Interface login + Hash mdp + Secu + Cookies retenir MDP 
                         // Formulaire ajout fiche
+                          //bouton modif
+                    // Page Gerer les users 
+                     // Bouton re mettre en ligne une fiche by archives

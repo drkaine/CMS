@@ -24,13 +24,10 @@
 
 		static function ajout_Fichier($file)
 		{
-			foreach ($ as $key => $value) {
-				
-			}
-			$tmp = explode(".", $file->Fichier["name"]);
-            $ext = $tmp[sizeof($tmp)-1];
-            $nameFile = $file->Id_Fiche.".".$ext;
-            return move_uploaded_file($img->Fichier['tmp_name'], self::$pathFile.$nameFile);
+			$tmp = explode(".", $file->File["name"]);
+            $ext = ".pdf";
+            $nameFile = $file->Titre.$ext;
+            return move_uploaded_file($file->File['tmp_name'], self::$pathFile.$nameFile);
 		}
 
 		static function modification_Fichier($file)

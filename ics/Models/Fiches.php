@@ -5,7 +5,7 @@
 
 		function creation_Fiche($fiche)
 		{
-			$erreurs = [];
+	
             foreach($fiche as $attribut => $valeur)
             {
                 $this->$attribut = $valeur;
@@ -23,13 +23,16 @@
 
 		function save_Fiche()
 		{
+		
+
 			Database::creation_Fiche($this);
-			self::creation_Fiche_Competence();
+			// self::creation_Fiche_Competence();
 		}
 
 		function modification_Fiche()
 		{
-			if(Database::modification_Fiche($this) and self::supression_Fiche_Competence() and self::creation_Fiche_Competence())
+		
+			if(Database::modification_Fiche($this))
 			{
 				return true;
 			}
@@ -37,6 +40,8 @@
 			{
 				return false;
 			}
+			// self::supression_Fiche_Competence();
+			// self::creation_Fiche_Competence();
 		}
 
 		static function afficher_Fiches()
@@ -49,40 +54,19 @@
 			return Database::afficher_Info("fiches", "Id_Fiches", $id);
 		}
 
-		static function creation_Fiche_Competence()
-		{
-			if(Database::creation_Fiche_Competence($this))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+		// static function creation_Fiche_Competence()
+		// {
+		// 	Database::creation_Fiche_Competence($this);
+		// }
 
-		function supression_Fiche_Competence()
-		{
-			if(Database::supression_Fiche_Competence($this))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+		// function supression_Fiche_Competence()
+		// {
+		// 	Database::supression_Fiche_Competence($this);
+		// }
 
-		function getCompetence($id)
-		{
-			if(Database::getCompetence($id))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+		// function getCompetence($id)
+		// {
+		// 	Database::getCompetence($id);
+		// }
 
 	}

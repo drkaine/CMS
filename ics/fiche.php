@@ -10,11 +10,8 @@ require("Models/Autoloader.php");
         echo $vue->generateView_fiche($fiche,$input);       
 
     
-        // if (empty($_SESSION['Nom'])){
-        //     header("location: index.php");
-        //   }
-        
-          var_dump($input);
+        Connexion::relocalisation();
+          
 
 
 ?>

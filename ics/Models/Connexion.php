@@ -35,11 +35,10 @@
 		}
 
 		static function deconnexion(){
-			if(isset($POST["Deco"])){
-
-				$Session = array();
+			if(isset($_POST["Deco"])){
+				unset($_SESSION);
 				session_destroy();
-				header("location: index.php");
+				//header("location: index.php");
 			  }  
 		}
 
@@ -47,7 +46,11 @@
 		{
 			if($_SESSION["Niveau"] == 0 or $_SESSION["Niveau"] == Null)
 			{
-				header("Location: interface.php");
+				return "Admin";
+			}
+			else
+			{
+				return "Super_Admin";
 			}
 		}
 
@@ -57,10 +60,10 @@
 			{
 				header("Location: index.php");
 			}
-			elseif(!empty($_SESSION) and $_SERVER["PHP_SELF"] == "index.php")
-			{
-				header("Location: interface.php");
-			}
+			// elseif(!empty($_SESSION) and $_SERVER["PHP_SELF"] == "index.php")
+			// {
+			// 	header("Location: interface.php");
+			// }
 		}
 
 		static function premiere_Connexion()

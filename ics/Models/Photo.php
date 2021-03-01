@@ -30,24 +30,26 @@
 
 		static function ajout_Photo($img)
 		{
-			$tmp = explode(".", $img->Photo["name"]);
+			$tmp = explode(".", $img->Photo1["name"]);
+			$tmp2 = explode(".", $img->Photo2["name"]);
+			$tmp3 = explode(".", $img->Photo3["name"]);
             $ext = $tmp[sizeof($tmp)-1];
-            foreach ($img->Photo as $key => $value) 
+            for($i = 1; $i <4; $i++) 
             {
-            	$nameFile = $img->Id_Fiche.".". $key .$ext;
+            $nameFile = $img->Code_ROM. "_". $i .".".$ext;
              	move_uploaded_file($img->Photo['tmp_name'], self::$pathImg.$nameFile);
             }
             return true;
 		}
 
-		static function afficher_Photo($img)
-		{
-			$photo = [];
-			foreach ($img->["Photo"] as $value) 
-			{
-				$photo[]= self::$pathImg . $img->("Id_Fiche") . "_" . $value;
-			}
-			return $photo;
-		}
+		// static function afficher_Photo($img)
+		// {
+		// 	// $photo = "";
+		// 	foreach ($img->["Photo"] as $value) 
+		// 	{
+		// 		$photo[]= self::$pathImg .  $value . ".pdf";
+		// 	}
+		// 	return $photo;
+		// }
 
 	}

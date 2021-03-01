@@ -6,28 +6,29 @@
 	class Utilisateurs
 	{
 
-		function creation_Utilisateur($user)
-		{			
+		function creation_Utilisateur($user, $modif = 0)
+        {            
             foreach($user as $attribut => $valeur)
             {
-            	if($attribut == "Niveau")
-            	{
-            		if($valeur == "Null")
-            		{
-            			$this->$attribut = Null;
-            		}
-                	$this->$attribut = $valeur;
-            	}
-            	$this->$attribut = $valeur;
-			}
-			if(!in_array("Mot_De_Passe", $user))
-        	{
-        		$this->Mot_De_Passe = MDP::GenerationMDP($valeur);
-        		Mail::creation_Mot_De_Passe($this->Mail,$this->Mot_De_Passe);
-        		$this->Mot_De_Passe = MDP::hachage($this->Mot_De_Passe);
-        	}
-			return true;
-		}
+                if($attribut == "Niveau")
+                {
+                    if($valeur == "Null")
+                    {
+                        $this->Niveau = "";
+                    }
+                    $this->Niveau = $valeur;
+                }
+                $this->$attribut = $valeur;
+            }
+            if(!in_array("Mot_De_Passe", $user) and $modif == 0)
+            {
+				
+                $this->Mot_De_Passe = MDP::GenerationMDP($valeur);
+                Mail::creation_Mot_De_Passe($this->Mail,$this->Mot_De_Passe);
+                $this->Mot_De_Passe = MDP::hachage($this->Mot_De_Passe);
+            }
+            return true;
+        }
 
 		static function afficher_Utilisateurs()
 		{
@@ -49,6 +50,7 @@
 
 		function modification_Utilisateur()
 		{
+			
 			Database::modification_Utilisateur($this);
 		}
 

@@ -9,8 +9,6 @@ require("Models/Autoloader.php");
 
         echo $vue->generateview_supp_user($user,$input);
 
-        // if (empty($_SESSION['Nom'])){
-        //     header("location: index.php");
-        //   }
+        Connexion::relocalisation();
           
 ?>

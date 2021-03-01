@@ -5,7 +5,8 @@
 
 <div class="container">
 
-  <form action="interface.php" method="post">
+  <form enctype="multipart/form-data" 
+   action="interface.php" method="post">
     <label for="titre">Titre</label>
     <input type="text" id="Titre" name="Titre" placeholder="Entrez un titre..">
 
@@ -18,13 +19,19 @@
     <label for="descrid">Description Détaillée</label>
     <input type="text" id="Description_Detaille" name="Description_Detaille" placeholder="Entrez une description détaillée..">
 
-    <label for="photo">Téléchargez une photo (max 3)</label>
-    <input type="file" id="Photo" name="Photo"><br>
+    <label for="photo">Téléchargez une photo</label>
+    <input type="file" id="Photo" name="Photo1"><br>
+
+    <label for="photo">Téléchargez une photo</label>
+    <input type="file" id="Photo2" name="Photo2"><br>
+
+    <label for="photo">Téléchargez une photo</label>
+    <input type="file" id="Photo3" name="Photo3"><br>
 
     <label for="fichier">Téléchargez un fichier</label>
-    <input type="file" id="Fichier" name="Fichier"><br>
+    <input type="file" id="File" name="File"><br>
 
-
+<input  name="ajout"  type="hidden">
     <input type="submit" value="Valider">
   </form>
 </div>
